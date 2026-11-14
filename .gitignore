@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+.env
+.env.*
+.gcp/
+credentials*.json
+*key.json
+/internal/
+

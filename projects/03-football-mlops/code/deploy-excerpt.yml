@@ -1,0 +1,30 @@
+# Source repository: TSM-MachLedata/MLOps @ b81fff3
+# Source path: github_portfolio/TSM-MachLedata__MLOps/.github/workflows/deploy.yml
+# Selection: Smoke test container in CI through Deploy to Cloud Run
+# Purpose: Check the local container, publish its image and deploy to managed Cloud Run.
+# Omissions: Workflow wrapper, checkout, artifact pull, authentication and image build; original indentation retained.
+
+      - name: Smoke test container in CI
+        run: |
+          docker run -d --name api -e PORT=8080 -p 8080:8080 "$IMAGE"
+          echo "Waiting for container to boot..."
+          sleep 25
+          echo "Calling /docs..."
+          set -x
+          curl -f http://localhost:8080/docs || (
+            echo "Container logs:"
+            docker logs api
+            exit 1
+          )
+          docker rm -f api
+
+      - name: Push image
+        run: docker push "$IMAGE"
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy "$SERVICE_NAME" \
+            --image "$IMAGE" \
+            --platform managed \
+            --region "$REGION" \
+            --allow-unauthenticated
