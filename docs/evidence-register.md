@@ -31,7 +31,7 @@ Source revision used for the portfolio: `1d55298`
 | [Spark benchmark](../projects/02-us-accidents-spark/assets/spark-benchmark.png) | Recorded benchmark figure `benchmark_plot.png`. The portfolio legend uses the workload names verified in the source `README.md` §4.11 and final presentation slide 21. Plot values are preserved. |
 | [Distributed analytics pipeline](../projects/02-us-accidents-spark/assets/analysis-pipeline.png) | Redrawn from `scripts/download_dataset.sh`, `notebooks/phase3/01_load_clean_exploration.ipynb`, `notebooks/phase4/4_1_feature_builder.ipynb`, `notebooks/phase4/4_4_Anthony.ipynb`, the MLlib notebook above, `README.md` §3.5 and `docs/presentation_roth_ottiger_atallah_jouclard.pdf`, pp. 20–22. |
 
-The project records 7,728,394 accident records and a dataset size of approximately 3.06 GB. Cloud execution and workload benchmarking are documented in the project material, including Google Cloud Storage use. Q3 is accident duration prediction (random forest regression), Q5 is spatial clustering (Spark MLlib KMeans), and Q6 is hourly accident count prediction (random forest regression).
+The project records 7,728,394 accident records and a dataset size of approximately 3.06 GB. Cloud execution and workload benchmarking are documented in the project material, including Google Cloud Storage use.
 
 ## LLM-Guided Automatic Heuristic Design
 

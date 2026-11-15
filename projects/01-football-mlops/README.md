@@ -15,8 +15,8 @@ The system connects the main stages of an operational machine-learning workflow:
 3. **Monitor feature distributions** to detect changes in incoming data.
 4. **Conditionally retrain models** when the configured drift threshold is exceeded.
 5. **Evaluate candidate models and select the champion** according to the model-selection criteria.
-6. **Package the prediction API in Docker** so the same application can run consistently in CI and in the cloud.
-7. **Validate the container during CI** before it is published.
+6. **Package the prediction API in Docker** so the same application can run consistently in the cloud.
+7. **Validate the container during CI** before publishing it.
 8. **Publish the tested container image** to Google Artifact Registry.
 9. **Deploy the prediction service** to Google Cloud Run.
 
@@ -71,13 +71,9 @@ The result is a reproducible path from analytical artifacts to a containerized p
 
 The monitoring/retraining workflow and application-deployment workflow are implemented separately in GitHub Actions, but together they form the model lifecycle shown above.
 
-A main-branch push or manual dispatch triggers the deployment workflow.
-
 ## Prediction service
 
 The API exposes model predictions including goal regression, home/draw/away classification and lineup-based prediction, together with champion-model metadata.
-
-A Streamlit interface was also developed around predictions, metrics and drift information.
 
 The portfolio emphasis, however, is the **MLOps and CI/CD system surrounding the models**, rather than football prediction accuracy itself.
 
@@ -90,7 +86,7 @@ The portfolio emphasis, however, is the **MLOps and CI/CD system surrounding the
 
 ## Technologies
 
-Python · XGBoost · SciPy · DVC · MLflow · FastAPI · Uvicorn · Docker · GitHub Actions · Google Cloud Storage · Google Artifact Registry · Google Cloud Run · Streamlit
+Python · XGBoost · SciPy · DVC · MLflow · FastAPI · Uvicorn · Docker · GitHub Actions · Google Cloud Storage · Google Artifact Registry · Google Cloud Run
 
 ## Sources
 

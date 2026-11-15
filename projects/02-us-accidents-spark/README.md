@@ -2,9 +2,9 @@
 
 This project explored **Big Data processing and distributed analytics** using a dataset of **7,728,394 US traffic-incident records** from 2016–2023, representing approximately **3.06 GB** of raw data.
 
-The objective was not simply to train models on an accident dataset. The project was designed to work with the tools and computational patterns used when analytical workflows move from conventional in-memory processing toward **distributed data processing**.
+The objective was not simply to train models on an accident dataset. The project was designed to work with the tools and computational patterns used when analytical workflows move from conventional single-machine processing toward **distributed execution** across a cluster.
 
-Apache Spark provided the central execution framework, while Parquet was used to create reusable analytical datasets for downstream transformations, statistical analysis and machine-learning workloads.
+Apache Spark provided the central distributed-computing framework, while Parquet was used to create reusable analytical datasets for downstream transformations, statistical analysis and machine-learning workloads.
 
 ## Big Data workflow
 
@@ -12,12 +12,12 @@ The original accident data was distributed as CSV.
 
 The workflow progressively transformed this raw source into data structures better suited to repeated analytical processing:
 
-1. ingest and clean the raw accident records with Spark;
-2. cast and normalize the required fields;
-3. engineer temporal, weather and geographical features;
-4. persist cleaned and prepared datasets in **Parquet**;
-5. reuse these Parquet datasets for Spark SQL/DataFrame analysis and Spark MLlib workloads;
-6. execute and benchmark selected Spark workloads on Google Cloud.
+1. Ingest the raw CSV dataset and convert it to Parquet.
+2. Clean, cast and filter the required fields using Spark DataFrame transformations.
+3. Engineer temporal, weather and geographical features using distributed Spark operations.
+4. Run analytical workloads with Spark SQL/DataFrames, including grouped aggregations and statistical summaries.
+5. Build machine-learning workflows with Spark MLlib, including feature-vector assembly, model fitting and evaluation.
+6. Execute and benchmark selected Spark workloads on Google Cloud across increasing input sizes.
 
 ![Big Data workflow from the raw accident dataset through Spark transformations, Parquet storage, analytical workloads and cloud execution](assets/analysis-pipeline.png)
 
@@ -33,26 +33,11 @@ Representative Spark transformations included:
 - computing grouped aggregations;
 - constructing temporal and weather features;
 - assembling numerical feature vectors for machine learning;
-- applying fitted models with `transform` to produce distributed DataFrames with predictions or cluster assignments.
-
-Representative actions and model evaluation steps included:
-
-- `count`;
-- `collect` for compact aggregated outputs;
-- model `fit`;
-- silhouette evaluation.
-
-For example, the weather/severity analysis groups accident records by severity and calculates distributed counts, means and standard deviations for weather variables before collecting only the reduced result table.
-
-The clustering workflow uses `VectorAssembler` to construct feature vectors and **Spark MLlib KMeans** to fit an eight-cluster model directly from the Spark DataFrame.
+- applying fitted models.
 
 ## Why Parquet?
 
-Repeatedly parsing and preparing the original CSV would duplicate preprocessing work across the different analyses.
-
-The cleaned and engineered data was therefore persisted in **Parquet**, providing a reusable columnar analytical representation for subsequent Spark workloads.
-
-This separated the ingestion/preparation stage from the downstream analyses and allowed multiple questions and models to operate on a common prepared dataset.
+Parquet is a columnar binary storage format: unlike CSV, it stores typed columns in an encoded representation rather than plain text. This makes it more efficient for repeated Spark reads, especially when an analysis only needs a subset of columns.
 
 ## Analytical workloads
 
@@ -80,7 +65,7 @@ The recorded benchmark increased the amount of processed data up to approximatel
 - **Q5 — Spatial clustering** using Spark MLlib KMeans.
 - **Q6 — Hourly accident count prediction** using random forest regression.
 
-The benchmark shows that the different workloads do not have identical computational profiles. Execution time increases as the processed sample grows, while the relative cost and memory requirements depend on the analysis being performed.
+The workloads exhibit a broadly similar increase in execution time with data volume, but at different absolute cost levels. The benchmark therefore highlights differences in constant-factor execution cost and configured memory requirements rather than demonstrating fundamentally different scaling laws.
 
 The objective of this experiment was to observe **scaling behavior and resource use in a distributed analytics setting**, rather than to report a single model-performance score.
 
