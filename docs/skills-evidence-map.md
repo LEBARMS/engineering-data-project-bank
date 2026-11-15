@@ -1,15 +1,17 @@
 # Skills Evidence Map
 
-| Skill | Evidence and where to start |
+| Technical area | Portfolio evidence |
 | --- | --- |
-| Signal processing and physical modeling | iPrint isolates a piezoelectric ring-down and fits a damped sinusoid with six interpretable parameters. [Fit excerpt](../projects/01-iprint-predictive-maintenance/code/ringdown_fit.py) |
-| Python, NumPy and SciPy | iPrint fits and summarizes windows with NumPy/SciPy. Football uses SciPy for feature-level drift. [iPrint](../projects/01-iprint-predictive-maintenance/README.md) · [Drift excerpt](../projects/03-football-mlops/code/drift_monitor.py) |
-| pandas and scikit-learn | iPrint builds supervised feature tables and evaluates histogram gradient boosting. The thesis uses scikit-learn clustering baselines. [iPrint](../projects/01-iprint-predictive-maintenance/README.md) · [Thesis](../projects/02-llm-optimization-thesis/README.md) |
-| Classification, regression and robustness | iPrint separates nozzle-state detection, pressure regression and onset prediction, with a nozzle-grouped holdout and sweep transfer tests. [Results](../projects/01-iprint-predictive-maintenance/README.md#results-across-operating-sequences) |
-| Operations research, TSP and heuristic optimization | The thesis varies TSP information regimes and evaluates solution feasibility, objective gaps and runtime. [TSP evaluator](../projects/02-llm-optimization-thesis/code/tsp_evaluation.py) |
-| LLM-guided code generation and experimentation | The thesis ties candidate generation to executable interfaces, benchmark feedback and parent selection. [Experimental system](../projects/02-llm-optimization-thesis/README.md#experimental-system) |
-| Clustering | The thesis implements SSE, p-median and radius-volume objectives. The accident project applies Spark MLlib KMeans and silhouette. [Objective code](../projects/02-llm-optimization-thesis/code/clustering_objectives.py) · [Spark code](../projects/04-us-accidents-spark/code/spark_clustering.py) |
-| Apache Spark, Spark SQL/DataFrames, Scala and PySpark | The accident project computes grouped weather statistics, builds Parquet features and benchmarks distributed workloads on Google Cloud. [Scala excerpt](../projects/04-us-accidents-spark/code/weather_by_severity.scala) · [Case study](../projects/04-us-accidents-spark/README.md) |
-| DVC, MLflow and Cloud Storage | Football versions artifacts and records experiments. Its drift workflow selects and reproduces stages conditionally. [Model lifecycle](../projects/03-football-mlops/README.md#model-lifecycle-and-deployment) |
-| FastAPI, Docker, GitHub Actions, Artifact Registry and Cloud Run | Football integrates inference endpoints, a local container smoke test, image publication and managed deployment. [Deployment excerpt](../projects/03-football-mlops/code/deploy-excerpt.yml) |
-
+| MLOps and model lifecycle | Football project: DVC artifact versioning, MLflow tracking, drift monitoring, conditional retraining and champion selection. [Case study](../projects/01-football-mlops/README.md) |
+| CI/CD and cloud deployment | Football project: Docker build, container smoke test, Artifact Registry publication and Cloud Run deployment through GitHub Actions. [Deployment excerpt](../projects/01-football-mlops/code/deploy-excerpt.yml) |
+| FastAPI and model serving | Football project: containerized prediction service deployed to managed Google Cloud infrastructure. [Case study](../projects/01-football-mlops/README.md) |
+| Apache Spark and distributed analytics | US Accidents project: Spark DataFrame transformations and actions, reusable Parquet datasets and cloud benchmarking across a 7.7M-record dataset. [Case study](../projects/02-us-accidents-spark/README.md) |
+| Scala and PySpark | US Accidents project: grouped weather/severity aggregation in Scala and Spark MLlib clustering in PySpark. [Scala excerpt](../projects/02-us-accidents-spark/code/weather_by_severity.scala) · [PySpark excerpt](../projects/02-us-accidents-spark/code/spark_clustering.py) |
+| Spark MLlib and clustering | US Accidents project: distributed feature assembly, KMeans fitting and silhouette evaluation. [Clustering excerpt](../projects/02-us-accidents-spark/code/spark_clustering.py) |
+| Operations research and heuristic optimization | Thesis: constructive heuristics, local refinement, p-median, TSP, algorithm evaluation and controlled benchmark protocols. [Case study](../projects/03-llm-optimization-thesis/README.md) |
+| LLM-guided algorithm generation | Thesis: iterative candidate generation, feasibility validation, benchmark feedback, parent selection and diversity-control prompting. [Case study](../projects/03-llm-optimization-thesis/README.md) |
+| Experimental design and algorithm evaluation | Thesis: quality/runtime trade-offs, stochastic variability, empirical scaling, multiple information regimes and mechanism verification. [TSP evaluator](../projects/03-llm-optimization-thesis/code/tsp_evaluation.py) |
+| Physical signal modelling | iPrint project: piezoelectric self-sensing waveforms represented through robust damped-sinusoid fitting. [Fit excerpt](../projects/04-iprint-anomaly-detection/code/ringdown_fit.py) |
+| Predictive modelling and robustness analysis | iPrint project: nozzle-state classification, separate pressure-sweep evaluation, early-warning horizons and exploratory pressure regression. [Case study](../projects/04-iprint-anomaly-detection/README.md) |
+| Python scientific stack | NumPy, SciPy, pandas and scikit-learn are used across the iPrint, thesis and Football projects for numerical modelling, optimization experiments and monitoring. |
+| Google Cloud | Football demonstrates containerized service deployment through Cloud Storage, Artifact Registry and Cloud Run. US Accidents demonstrates distributed Spark execution and cloud-based workload benchmarking. |

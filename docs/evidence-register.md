@@ -1,60 +1,74 @@
 # Technical Evidence Register
 
-Source paths are relative to the named source repository unless a workspace path is shown. Commit references identify the versions used. Each excerpt lists its selection and omissions in the header.
+This document records the origin of the focused code excerpts and visuals used in the public portfolio. Source paths refer to the original project repositories or final reports. The portfolio contains selected technical evidence rather than copies of the complete source projects.
 
-## iPrint Predictive Maintenance
+## Football Prediction MLOps & CI/CD
 
-Repository `PA-iPrint-anomaly-detection/PA` at `a53dc5b`. Final PA report by Anthony Atallah, dated February 2026.
+Canonical repository: `TSM-MachLedata/MLOps`
 
-| Portfolio evidence | Original source |
-| --- | --- |
-| [Ring-down fitting](../projects/01-iprint-predictive-maintenance/code/ringdown_fit.py) | `github_portfolio/PA-iPrint-anomaly-detection__PA/fitting_loop_merge_labels.ipynb`, cell 4, waveform model, windowed fit and summary functions. |
-| [Lead-time feature construction](../projects/01-iprint-predictive-maintenance/code/lead_time_features.py) | `github_portfolio/PA-iPrint-anomaly-detection__PA/steps_before_failure.ipynb`, cell 3, `_row_singleK_delta`. |
-| [Lead-time F1 plot](../projects/01-iprint-predictive-maintenance/assets/f1-by-lead-time.png) | Original embedded PNG in `github_portfolio/PA-iPrint-anomaly-detection__PA/steps_before_failure.ipynb`, cell 5, output 1. |
-| [Non-jetting confusion matrices](../projects/01-iprint-predictive-maintenance/assets/non-jetting-confusion.png) | Redrawn from Figure 5.1, PDF p. 28 in `github_portfolio/PA-iPrint-anomaly-detection__PA/AtallahAnthony_rapport_MSE_PA_SA25.pdf`. Non-jetting F1 is computed from the reported counts as 2TP / (2TP + FP + FN). |
-| [Signal pipeline](../projects/01-iprint-predictive-maintenance/assets/signal-pipeline.png) | New diagram from `github_portfolio/PA-iPrint-anomaly-detection__PA/preprocessing.ipynb` cell 10, `github_portfolio/PA-iPrint-anomaly-detection__PA/extract_ringdown.ipynb` cell 4, `github_portfolio/PA-iPrint-anomaly-detection__PA/fitting_loop_merge_labels.ipynb` cells 4, 6, 8, 12 and 14, `github_portfolio/PA-iPrint-anomaly-detection__PA/binary_classification.ipynb` cell 3, and `github_portfolio/PA-iPrint-anomaly-detection__PA/steps_before_failure.ipynb` cell 3. |
-
-Shape and acquisition scope come from the PA report, §§3.1–3.2. The report’s Figure 5.1 and the classification notebook provide classification counts. Early-warning F1 at K=1–3 is recorded in the lead-time notebook cell 3. Pressure-regression metrics are in `github_portfolio/PA-iPrint-anomaly-detection__PA/predict_pressure.ipynb`, cells 6 and 8.
-
-## LLM Optimization Thesis
-
-Repositories `TM-HESSO-202526/llm-tsp-heuristics` at `862bb0c` and `TM-HESSO-202526/llm-clustering-heuristics` at `1c810e0`. Primary results and protocol source: Anthony Atallah, *Development of Optimization Heuristics with AI*, HES-SO MSE, June 2026, `github_portfolio/AtallahAnthony_rapport_MSE_TM_SP26.pdf`.
+Source revision used for the portfolio: `b81fff3`
 
 | Portfolio evidence | Original source |
 | --- | --- |
-| [TSP scoring excerpt](../projects/02-llm-optimization-thesis/code/tsp_evaluation.py) | `github_portfolio/TM-HESSO-202526__llm-tsp-heuristics/server_eval/run_selected_tsp_eval.py`, `normalize_tour` and `run_one`. |
-| [Parent selection](../projects/02-llm-optimization-thesis/code/parent_selection.py) | `github_portfolio/TM-HESSO-202526__llm-tsp-heuristics/src/llm_tsp/llamea_loop.py`, `select_parent` and `parent_selection_reason`. |
-| [Clustering objective module](../projects/02-llm-optimization-thesis/code/clustering_objectives.py) | `github_portfolio/TM-HESSO-202526__llm-clustering-heuristics/src/llm_clustering/objectives.py`, complete small module. |
-| [C1a generated candidate](../projects/02-llm-optimization-thesis/code/tsp_candidate_c1a.py) | `github_portfolio/TM-HESSO-202526__llm-tsp-heuristics/experiments/selected_tsp_heuristics_final_by_signal/candidate_list/C1a_heuristic.py`. LLM-generated, curated and selected for evaluation. |
-| [Generation loop](../projects/02-llm-optimization-thesis/assets/generation-loop.png) | New diagram adapted from final report Figure 3.1 (PDF p. 16), Tables 3.1–3.3 and §3.3.3. Implementations in `github_portfolio/TM-HESSO-202526__llm-tsp-heuristics/src/llm_tsp/llamea_loop.py` and `github_portfolio/TM-HESSO-202526__llm-clustering-heuristics/scripts/run_unified_pipeline.py`. |
-| [Refinement trade-offs](../projects/02-llm-optimization-thesis/assets/refinement-tradeoffs.png) | Redrawn from final report Tables 5.1 and 6.1 (PDF pp. 36 and 43). Within-problem medians for D1/D1a and S1/SB1. |
+| [Feature-level drift detection](../projects/01-football-mlops/code/drift_monitor.py) | `src/monitor_drift.py`, `run_ks_drift`. |
+| [Conditional retraining](../projects/01-football-mlops/code/conditional_retraining.py) | `src/retrain_if_drift.py`, retraining and threshold logic. |
+| [Champion-model selection](../projects/01-football-mlops/code/champion_selection.py) | `src/select_champion.py`, champion selection logic. |
+| [Deployment workflow excerpt](../projects/01-football-mlops/code/deploy-excerpt.yml) | `.github/workflows/deploy.yml`, container smoke test through Cloud Run deployment. |
+| [Model lifecycle diagram](../projects/01-football-mlops/assets/training-and-serving.png) | Redrawn from `.github/workflows/retrain.yml`, `.github/workflows/deploy.yml`, `src/retrain_if_drift.py`, `src/select_champion.py`, `dvc.yaml`, `.dvc/config`, `src/train_model2.py`, `Dockerfile` and `app/main.py`. |
 
-Benchmark coverage is in final report Tables 3.2–3.3. Candidate-list and edge-prior results come from Tables 5.5 and 5.7 (PDF pp. 39 and 41), with separate instance coverage. P-median and radius-volume results come from Tables 6.3 and 6.5 (PDF pp. 46 and 50). §3.6 defines references, variability and empirical scaling. Chapters 7–9 cover attribution and interpretation.
+The monitoring workflow performs scheduled drift detection and conditional retraining. The deployment workflow is triggered separately by a main-branch push or manual dispatch. The diagram shows where updated evaluations feed champion selection and where the release trigger applies.
 
-## Football MLOps
+## Large-Scale US Accidents Analytics with Apache Spark
 
-Canonical repository `TSM-MachLedata/MLOps` at `b81fff3`. The team project records a Cloud Run deployment in its README and implements the release in GitHub Actions.
+Source repository: US Accidents academic project
 
-| Portfolio evidence | Original source |
-| --- | --- |
-| [Feature drift](../projects/03-football-mlops/code/drift_monitor.py) | `github_portfolio/TSM-MachLedata__MLOps/src/monitor_drift.py`, `run_ks_drift`. |
-| [Conditional retraining](../projects/03-football-mlops/code/conditional_retraining.py) | `github_portfolio/TSM-MachLedata__MLOps/src/retrain_if_drift.py`, `retrain_models` and `main`. |
-| [Champion selection](../projects/03-football-mlops/code/champion_selection.py) | `github_portfolio/TSM-MachLedata__MLOps/src/select_champion.py`, `main`. |
-| [Deployment excerpt](../projects/03-football-mlops/code/deploy-excerpt.yml) | `github_portfolio/TSM-MachLedata__MLOps/.github/workflows/deploy.yml`, from `Smoke test container in CI` through `Deploy to Cloud Run`. |
-| [Training and serving](../projects/03-football-mlops/assets/training-and-serving.png) | New diagram from `github_portfolio/TSM-MachLedata__MLOps/.github/workflows/retrain.yml`, `github_portfolio/TSM-MachLedata__MLOps/src/retrain_if_drift.py`, `github_portfolio/TSM-MachLedata__MLOps/dvc.yaml`, `github_portfolio/TSM-MachLedata__MLOps/.dvc/config`, `github_portfolio/TSM-MachLedata__MLOps/src/train_model2.py`, `github_portfolio/TSM-MachLedata__MLOps/.github/workflows/deploy.yml`, `github_portfolio/TSM-MachLedata__MLOps/Dockerfile` and `github_portfolio/TSM-MachLedata__MLOps/app/main.py`. |
-
-The 30% trigger is a threshold in the workflow and retraining logic, measured as a share of tested numeric features.
-
-## US Accidents / Spark
-
-MA-BDA US Accidents academic team repository at `1d55298`.
+Source revision used for the portfolio: `1d55298`
 
 | Portfolio evidence | Original source |
 | --- | --- |
-| [Scala weather summaries](../projects/04-us-accidents-spark/code/weather_by_severity.scala) | `notebooks/phase3/03_statistical_analysis_3_4.scala`, aggregation/export block in `SeverityWeatherAnalysis.main`. |
-| [Spark MLlib clustering](../projects/04-us-accidents-spark/code/spark_clustering.py) | `notebooks/phase4/4_5_Clustering_Spark_MLlib.ipynb`, cells 6, 8 and 10. |
-| [UMAP figure](../projects/04-us-accidents-spark/assets/cluster-umap.png) | Original embedded plot in `notebooks/phase4/03_statistical_analysis_3_5.ipynb` at `c9157ee`, cell 11, output 2. The team presentation includes the same plot on p. 9. |
-| [Benchmark figure](../projects/04-us-accidents-spark/assets/spark-benchmark.png) | Original team image `benchmark_plot.png`. |
-| [Spark pipeline](../projects/04-us-accidents-spark/assets/analysis-pipeline.png) | New diagram from `scripts/download_dataset.sh`, `notebooks/phase3/01_load_clean_exploration.ipynb`, `notebooks/phase4/4_1_feature_builder.ipynb`, `notebooks/phase4/4_4_Anthony.ipynb`, and the MLlib notebook above. The GCS benchmark annotation comes from §3.5 of the source `README.md` in that checkout and the cloud context from `docs/presentation_roth_ottiger_atallah_jouclard.pdf`, pp. 20–22. |
+| [Scala weather/severity aggregation](../projects/02-us-accidents-spark/code/weather_by_severity.scala) | `notebooks/phase3/03_statistical_analysis_3_4.scala`, grouped numerical weather summaries and weather-condition counts. |
+| [Spark MLlib clustering](../projects/02-us-accidents-spark/code/spark_clustering.py) | `notebooks/phase4/4_5_Clustering_Spark_MLlib.ipynb`, feature assembly, KMeans and silhouette evaluation. |
+| [Spark benchmark](../projects/02-us-accidents-spark/assets/spark-benchmark.png) | Recorded benchmark figure `benchmark_plot.png`. The portfolio legend uses the workload names verified in the source `README.md` §4.11 and final presentation slide 21. Plot values are preserved. |
+| [Distributed analytics pipeline](../projects/02-us-accidents-spark/assets/analysis-pipeline.png) | Redrawn from `scripts/download_dataset.sh`, `notebooks/phase3/01_load_clean_exploration.ipynb`, `notebooks/phase4/4_1_feature_builder.ipynb`, `notebooks/phase4/4_4_Anthony.ipynb`, the MLlib notebook above, `README.md` §3.5 and `docs/presentation_roth_ottiger_atallah_jouclard.pdf`, pp. 20–22. |
 
-The saved Phase 3 load output supplies the row count. The team presentation reports 3.06 GB (p. 4) and 68.54% exploratory cluster-to-severity correspondence (p. 10). The benchmark plot records runs up to 7 million rows.
+The project records 7,728,394 accident records and a dataset size of approximately 3.06 GB. Cloud execution and workload benchmarking are documented in the project material, including Google Cloud Storage use. Q3 is accident duration prediction (random forest regression), Q5 is spatial clustering (Spark MLlib KMeans), and Q6 is hourly accident count prediction (random forest regression).
+
+## LLM-Guided Automatic Heuristic Design
+
+TSP repository: `TM-HESSO-202526/llm-tsp-heuristics`
+
+TSP source revision used for the portfolio: `862bb0c`
+
+Clustering repository: `TM-HESSO-202526/llm-clustering-heuristics`
+
+Clustering source revision used for the portfolio: `1c810e0`
+
+Primary methodology and result source: Anthony Atallah, *Development of Optimization Heuristics with AI — LLM-Guided Generation and Evaluation of Heuristics for TSP and Clustering*, HES-SO MSE master thesis, June 2026. Local source `github_portfolio/AtallahAnthony_rapport_MSE_TM_SP26.pdf`.
+
+| Portfolio evidence | Original source |
+| --- | --- |
+| [TSP feasibility and benchmark scoring](../projects/03-llm-optimization-thesis/code/tsp_evaluation.py) | `server_eval/run_selected_tsp_eval.py`, selected validation and scoring functions. |
+| [Parent selection](../projects/03-llm-optimization-thesis/code/parent_selection.py) | `src/llm_tsp/llamea_loop.py`, parent-selection logic. |
+| [Clustering objectives](../projects/03-llm-optimization-thesis/code/clustering_objectives.py) | `src/llm_clustering/objectives.py`. |
+| [P3 p-median candidate](../projects/03-llm-optimization-thesis/code/pmedian_candidate_p3.py) | `experiments/selected_clustering_heuristics_final_by_objective/P_MEDIAN_data_point_centers/P3_heuristic.py`. LLM-generated, curated candidate selected for final evaluation. |
+| [Generation-loop diagram](../projects/03-llm-optimization-thesis/assets/generation-loop.png) | Redrawn from final thesis Figure 3.1 (PDF p. 16), the TSP loop in `src/llm_tsp/llamea_loop.py` and clustering pipeline in `scripts/run_unified_pipeline.py`. |
+| [Generated-vs-baseline comparison](../projects/03-llm-optimization-thesis/assets/refinement-tradeoffs.png) | Redrawn from final thesis Tables 6.1 and 6.3 (PDF pp. 43 and 46) using recorded final values only. |
+
+The final thesis report is authoritative for benchmark design, generation-behaviour analysis, result interpretation and conclusions. It reports approximately 57,000 TSP generation attempts and approximately 71,000 clustering generation attempts across the analyzed logs.
+
+## iPrint Printhead Anomaly Detection & Early Warning
+
+Repository: `PA-iPrint-anomaly-detection/PA`
+
+Source revision used for the portfolio: `a53dc5b`
+
+Primary report: final HEIA-FR PA report, February 2026, `AtallahAnthony_rapport_MSE_PA_SA25.pdf`.
+
+| Portfolio evidence | Original source |
+| --- | --- |
+| [Damped-sinusoid fitting](../projects/04-iprint-anomaly-detection/code/ringdown_fit.py) | `fitting_loop_merge_labels.ipynb`, cell 4, waveform model, robust windowed fitting and feature summarization. |
+| [Early-warning F1 plot](../projects/04-iprint-anomaly-detection/assets/f1-by-lead-time.png) | Original embedded output from `steps_before_failure.ipynb`, cell 5, output 1. |
+| [Non-jetting confusion matrices](../projects/04-iprint-anomaly-detection/assets/non-jetting-confusion.png) | Redrawn from the final report classification counts, Figure 5.1 (PDF p. 28), using the intended non-jetting class interpretation. |
+| [Signal-processing pipeline](../projects/04-iprint-anomaly-detection/assets/signal-pipeline.png) | Redrawn from `preprocessing.ipynb` cell 10, `extract_ringdown.ipynb` cell 4, `fitting_loop_merge_labels.ipynb` cells 4, 6, 8, 12 and 14, `binary_classification.ipynb` cell 3, and `steps_before_failure.ipynb` cell 3. |
+
+The PA report (Sections 2.2 and 3.1) defines meniscus pressure as the pressure difference between the ink delivery system and the atmosphere at the nozzle opening. The lowering sweep ran from −50.0 to −87.6 mbar in 0.4 mbar steps across 95 levels. The narrower increasing robustness sweep ran from −50.0 to −44.0 mbar in 0.4 mbar steps. Each lowering replicate provided approximately 121,600 nozzle × pressure waveform observations across 1,280 nozzles before label filtering. The sweeps varied operating conditions to reproduce jetting failures and induce missing-line defects. Validation on naturally occurring fouling, clogging or wear under stable operating conditions remains future work.

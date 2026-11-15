@@ -1,15 +1,21 @@
-# Anthony Atallah | Applied Data Science & Engineering
+# Applied Data Science & Engineering Portfolio
 
-I turn physical signals into predictive models and design experiments to evaluate optimization heuristics. My systems work spans deploying a monitored prediction API and benchmarking Spark workloads on millions of records.
+Selected technical projects covering **MLOps and CI/CD**, **Big Data and distributed computing**, **LLM-guided optimization**, and **physics-informed anomaly detection**.
 
-| Project | Capability | Technical evidence |
+Each case study focuses on a different engineering question: how predictive models can be operated and deployed reliably, how multi-million-record datasets can be processed with distributed systems, how LLMs can participate in iterative algorithm design, and how physical self-sensing signals can reveal abnormal behavior in an industrial system.
+
+| Project | Main question | Core technologies |
 | --- | --- | --- |
-| [iPrint Predictive Maintenance](projects/01-iprint-predictive-maintenance/README.md) | **Engineering systems and signal processing** | Turned piezoelectric printhead waveforms into six interpretable features and measured detection and early warning across pressure sweeps. |
-| [LLM Optimization Thesis](projects/02-llm-optimization-thesis/README.md) | **Operations research and experimental design** | Built a generate–evaluate–feedback loop for executable TSP and clustering heuristics. Compared quality, runtime, stability, and scaling in the final thesis benchmarks. |
-| [Football MLOps](projects/03-football-mlops/README.md) | **Model lifecycle and cloud deployment** | Built FastAPI and CI/CD integration for a team MLOps system that versions artifacts in Cloud Storage and deploys Docker images through Artifact Registry to Cloud Run. |
-| [US Accidents / Spark](projects/04-us-accidents-spark/README.md) | **Distributed analytics and cloud execution** | Analyzed weather and severity and explored clustering in a 7.7-million-record project using Spark. The team ran distributed workloads and benchmarks on Google Cloud. |
+| [Football Prediction MLOps & CI/CD](projects/01-football-mlops/README.md) | How can predictive models be integrated into a reproducible CI/CD and MLOps pipeline from training to monitoring and cloud deployment? | Python, DVC, MLflow, FastAPI, Docker, GitHub Actions, Google Cloud Storage, Artifact Registry, Cloud Run |
+| [Large-Scale US Accidents Analytics with Apache Spark](projects/02-us-accidents-spark/README.md) | How can conventional analytical and machine-learning workloads be expressed and evaluated in a Big Data / distributed-computing environment? | Apache Spark, Spark SQL/DataFrames, Spark MLlib, Scala, PySpark, Parquet, Google Cloud |
+| [LLM-Guided Automatic Heuristic Design](projects/03-llm-optimization-thesis/README.md) | Can an LLM accelerate the traditionally manual process of generating, evaluating and iteratively improving optimization heuristics? | Python, LLM-guided code generation, TSP, clustering, automated evaluation, experimental optimization |
+| [iPrint Printhead Anomaly Detection & Early Warning](projects/04-iprint-anomaly-detection/README.md) | Can acoustic self-sensing identify abnormal nozzle behavior and reveal signs of failure before non-jetting occurs? | Python, SciPy, scikit-learn, signal modelling, physical feature extraction, classification |
 
-Football uses Google Cloud to deliver a containerized service. US Accidents uses Google Cloud and Cloud Storage for distributed Spark processing and benchmarking.
+The projects are intentionally complementary:
 
-[Project index](PROJECT_INDEX.md) · [Skills evidence map](docs/skills-evidence-map.md) · [Excerpt and visual provenance](docs/evidence-register.md)
+- **Football MLOps** focuses on operating analytical models through CI/CD, monitoring and cloud deployment.
+- **US Accidents** focuses on Big Data processing, distributed transformations and Spark-based analytics.
+- **LLM Heuristics** focuses on optimization research and automated algorithm design.
+- **iPrint** focuses on modelling a physical engineering system from acoustic self-sensing measurements.
 
+[Skills evidence map](docs/skills-evidence-map.md) · [Technical evidence register](docs/evidence-register.md)

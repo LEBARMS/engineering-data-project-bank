@@ -1,39 +1,126 @@
-# LLM Optimization Thesis
+# LLM-Guided Automatic Heuristic Design
 
-For my June 2026 HES-SO MSE thesis, supervised by Prof. Eric Taillard, I built an LLM-guided framework for designing and evaluating executable Python heuristics for the traveling salesman problem (TSP) and centroid clustering. I used it to study which mechanisms emerge under different problem interfaces, how they use feedback, and where construction, repair and external information contribute to quality.
+Designing optimization heuristics is traditionally an iterative specialist task.
 
-## Experimental system
+A researcher or optimization practitioner proposes an algorithmic idea, implements it, evaluates it on benchmark instances, studies where it fails, modifies the mechanism, and repeats the process. This can produce strong heuristics, but exploring many alternative designs is time-consuming and depends heavily on expert intuition.
 
-![A prompt generates a Python candidate, which is validated, benchmarked and selected using feedback](assets/generation-loop.png)
+The master thesis investigated whether a **large language model could accelerate part of this design loop** by repeatedly generating executable heuristic candidates, receiving measured feedback, and proposing revised algorithms.
 
-I developed the generation loop, problem interfaces, feasibility checks, time limits, failure reporting and final evaluators. Groq-hosted Llama 3.3 70B proposed candidate code. The framework scored feasible tours or center sets, summarized failures and performance, and used elitist or sequential parent selection to build the next prompt. Family avoidance and family-focused prompting helped test a wider range of mechanisms. Code inspection checked whether generated candidates actually implemented their stated mechanisms.
+The research question was therefore not whether an LLM could produce a complete state-of-the-art solver from one prompt. The objective was to study whether an LLM could act as a useful **algorithm-generation component inside an automated generate → evaluate → feedback → selection loop**.
 
-| TSP information regimes | Clustering objectives |
+## Generate, evaluate and refine
+
+![LLM-guided heuristic generation and evaluation loop](assets/generation-loop.png)
+
+The framework searches over executable heuristic programs.
+
+Each generation cycle follows the same structure:
+
+1. define the optimization objective, candidate interface and information available to the heuristic;
+2. ask the LLM to generate a heuristic candidate as executable Python code;
+3. validate the program and ensure that its output is feasible;
+4. evaluate the candidate on benchmark instances;
+5. measure objective quality, runtime, validity and failure information;
+6. summarize the measured feedback;
+7. select a candidate to use as the parent of the next generation;
+8. update the prompt and generate another heuristic.
+
+This makes the LLM a **proposal mechanism** rather than the complete optimization system.
+
+The surrounding framework supplies the benchmark, validation rules, feedback, runtime constraints and selection logic.
+
+## Two optimization settings
+
+The same generation methodology was studied across two different optimization domains.
+
+| Traveling Salesman Problem | Clustering |
 | --- | --- |
-| **Distance-only** uses geometry and distances from the instance. | **SSE** minimizes squared distances to free centers. |
-| **Candidate lists** supply LKH/POPMUSIC neighbor lists. | **Data-point p-median** minimizes Euclidean distances to input-point centers. |
-| **Edge priors** supply edge frequencies from earlier short searches. | **Radius-volume** sums the dimension-powered radii around input-point centers. |
+| Distance-only heuristic generation | Sum-of-squares clustering |
+| Candidate-list guidance | Data-point p-median |
+| Empirical edge-prior guidance | Radius-volume coverage |
 
-## Final benchmark findings
+The purpose of using different interfaces and objectives was to observe whether the generated mechanisms changed with the information and optimization structure presented to the model.
 
-The final evaluation used **14 TSPLIB instances** with up to **85,900 cities** and **270 synthetic clustering instances** with up to **10,000 points**. I compared median reference gap and runtime, seed-to-seed and instance-to-instance variability, and empirical scaling. The main evaluations used 100 repetitions per instance, with reduced coverage for some external baselines.
+## What the generation process revealed
 
-![Within-protocol reference gap and runtime comparisons for distance-only TSP and free-center SSE](assets/refinement-tradeoffs.png)
+The generation logs were important results in their own right.
 
-- **Distance-only TSP.** Adding 2-opt to the nearest-neighbor construction reduced the median reference gap from **22.64% to 8.75%**, with median runtime rising from 1.48 s to 2.59 s.
-- **Signal-assisted TSP.** On the 12-instance assisted benchmark, C1a reached a **13.46%** median gap with candidate lists and adaptive cleanup. P1 reached **4.67%** using precomputed edge priors and bounded repair. Its repetition standard deviation was 0.01 percentage points and its instance standard deviation was 8.39 points. These results measure different information regimes from distance-only TSP.
-- **Clustering.** Under SSE, generated S1 reached **1.52%** median reference gap versus **1.89%** for scikit-learn K-means++, with longer runtime. Sampled p-median P1 reached **1.90%** versus **−0.77%** for FastPAM1. For radius-volume, R1 reached **−2.35%, 37.04% and 92.53%** in dimensions 2, 3 and 4. Adapted external methods remained competitive. Negative gaps indicate improvements over empirical references.
+Across the analyzed TSP experiments, approximately **57,000 heuristic-generation attempts** were produced. About **80%** returned valid executable tours.
 
-The loop produced executable variations on established mechanisms. Construction and bounded refinement came from candidate code. Problem signals, validation, references and parent selection came from the framework and shaped the final outcomes.
+This showed that generating runnable code was not the hardest problem. The more difficult objective was generating methods that were simultaneously:
+
+- valid;
+- competitive;
+- computationally reasonable;
+- and structurally different from candidates already explored.
+
+With neutral prompting, the model repeatedly returned familiar TSP mechanisms, especially nearest-neighbour construction followed by 2-opt or related local improvement.
+
+This repeated behavior motivated **diversity-control prompting**.
+
+Historical family avoidance informed the LLM when certain heuristic families had already appeared frequently and encouraged it to explore different mechanisms.
+
+Family-focused prompting used a complementary approach by explicitly directing generation toward a selected mechanism family.
+
+Longer runs also revealed an exploration/exploitation trade-off: once a useful parent candidate was found, later generations often refined or slightly modified the same mechanism instead of continually discovering new algorithm families.
+
+The clustering experiments produced approximately **71,000 generated attempts**, with about **76%** returning valid executable center sets.
+
+Changing the clustering objective also changed the algorithmic behavior produced by the LLM:
+
+- SSE encouraged free-center initialization and refinement strategies;
+- p-median encouraged medoid selection, sampling and medoid replacement;
+- radius-volume encouraged radius-aware repair and coverage mechanisms.
+
+The experiments therefore suggest that LLM-generated algorithms are strongly shaped by the optimization objective, the information interface and the feedback provided by the surrounding framework.
+
+## Benchmark results
+
+Final candidates were evaluated against benchmark references. Distance-only TSP included diagnostic controls, and the clustering experiments compared candidates with external baselines.
+
+**Reference gap** measures the percentage difference between the candidate objective value and the reference used for that benchmark. A gap of **0%** matches the reference; lower is better. Negative values are possible when an empirical reference is improved upon.
+
+![Selected LLM-generated heuristics and external baselines](assets/refinement-tradeoffs.png)
+
+Representative findings include:
+
+- In distance-only TSP, adding local 2-opt refinement to nearest-neighbour construction reduced the median reference gap from **22.64% to 8.75%**.
+- In the signal-assisted TSP experiments, the strongest selected edge-prior method reached a **4.67% median reference gap**, illustrating how strongly performance can depend on the information exposed to the generated heuristic.
+- Under the SSE clustering objective, generated method S1 reached a **1.52% median reference gap**, compared with **1.89%** for the external scikit-learn K-means++ baseline, although with a higher runtime.
+
+These results should not be interpreted as an LLM independently discovering a superior optimization solver.
+
+The main result is that an LLM can participate productively in a **controlled heuristic-design pipeline**, rapidly proposing and recombining algorithmic mechanisms that can then be tested experimentally.
+
+## Mechanism verification
+
+Generated algorithm names were not treated as evidence of what the code actually implemented.
+
+Code-level inspection was used to determine whether a candidate genuinely implemented the mechanism suggested by its description.
+
+This distinction matters because some candidates labelled with more elaborate ideas ultimately reduced to familiar local mechanisms in their executed implementation.
+
+The experiment therefore evaluated both **what the LLM claimed to generate** and **what the resulting code actually did**.
+
+## Representative generated heuristic
+
+**P3 — Coarse-to-Fine Medoid Construction with Local In-Cluster Replacement** is a selected p-median candidate.
+
+This LLM-generated candidate uses a coarse-to-fine strategy: it begins with a reduced set of representative centers, partitions the points, expands the center set using geometric information, and performs local replacement with data-point medoids.
+
+It is included as an example of the type of executable algorithm produced by the generation system, not as a claim of a fundamentally new optimization principle.
 
 ## Technical evidence
 
-- [TSP tour validation and benchmark scoring](code/tsp_evaluation.py)
-- [Elitist and sequential parent selection](code/parent_selection.py)
-- [Batched clustering objective functions](code/clustering_objectives.py)
-- [C1a: LLM-generated, curated candidate selected for evaluation](code/tsp_candidate_c1a.py)
+- [TSP validation and benchmark scoring](code/tsp_evaluation.py)
+- [Parent-selection logic](code/parent_selection.py)
+- [Clustering objective implementations](code/clustering_objectives.py)
+- [LLM-generated P3 p-median heuristic](code/pmedian_candidate_p3.py)
 
-**Tools** · Python, NumPy, pandas, Colab, Groq, TSPLIB, LKH/POPMUSIC, scikit-learn and k-medoids baselines.
+## Technologies
 
-**Sources** · [TSP repository](https://github.com/TM-HESSO-202526/llm-tsp-heuristics) · [Clustering repository](https://github.com/TM-HESSO-202526/llm-clustering-heuristics) · [June 2026 report and benchmark table locators](../../docs/evidence-register.md#llm-optimization-thesis)
+Python · NumPy · pandas · Groq · Llama 3.3 70B · TSPLIB · LKH / POPMUSIC · scikit-learn · k-medoids
 
+## Sources
+
+[TSP repository](https://github.com/TM-HESSO-202526/llm-tsp-heuristics) · [Clustering repository](https://github.com/TM-HESSO-202526/llm-clustering-heuristics) · [Final thesis evidence and benchmark provenance](../../docs/evidence-register.md#llm-guided-automatic-heuristic-design)
