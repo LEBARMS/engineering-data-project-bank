@@ -6,8 +6,6 @@ This document records the origin of the focused code excerpts and visuals used i
 
 Canonical repository: `TSM-MachLedata/MLOps`
 
-Source revision used for the portfolio: `b81fff3`
-
 | Portfolio evidence | Original source |
 | --- | --- |
 | [Feature-level drift detection](../projects/01-football-mlops/code/drift_monitor.py) | `src/monitor_drift.py`, `run_ks_drift`. |
@@ -16,13 +14,9 @@ Source revision used for the portfolio: `b81fff3`
 | [Deployment workflow excerpt](../projects/01-football-mlops/code/deploy-excerpt.yml) | `.github/workflows/deploy.yml`, container smoke test through Cloud Run deployment. |
 | [Model lifecycle diagram](../projects/01-football-mlops/assets/training-and-serving.png) | Redrawn from `.github/workflows/retrain.yml`, `.github/workflows/deploy.yml`, `src/retrain_if_drift.py`, `src/select_champion.py`, `dvc.yaml`, `.dvc/config`, `src/train_model2.py`, `Dockerfile` and `app/main.py`. |
 
-The monitoring workflow performs scheduled drift detection and conditional retraining. The deployment workflow is triggered separately by a main-branch push or manual dispatch. The diagram shows where updated evaluations feed champion selection and where the release trigger applies.
-
 ## Large-Scale US Accidents Analytics with Apache Spark
 
 Source repository: US Accidents academic project
-
-Source revision used for the portfolio: `1d55298`
 
 | Portfolio evidence | Original source |
 | --- | --- |
@@ -31,13 +25,9 @@ Source revision used for the portfolio: `1d55298`
 | [Spark benchmark](../projects/02-us-accidents-spark/assets/spark-benchmark.png) | Recorded benchmark figure `benchmark_plot.png`. The portfolio legend uses the workload names verified in the source `README.md` §4.11 and final presentation slide 21. Plot values are preserved. |
 | [Distributed analytics pipeline](../projects/02-us-accidents-spark/assets/analysis-pipeline.png) | Redrawn from `scripts/download_dataset.sh`, `notebooks/phase3/01_load_clean_exploration.ipynb`, `notebooks/phase4/4_1_feature_builder.ipynb`, `notebooks/phase4/4_4_Anthony.ipynb`, the MLlib notebook above, `README.md` §3.5 and `docs/presentation_roth_ottiger_atallah_jouclard.pdf`, pp. 20–22. |
 
-The project records 7,728,394 accident records and a dataset size of approximately 3.06 GB. Cloud execution and workload benchmarking are documented in the project material, including Google Cloud Storage use.
-
 ## LLM-Guided Automatic Heuristic Design
 
 TSP repository: `TM-HESSO-202526/llm-tsp-heuristics`
-
-TSP source revision used for the portfolio: `862bb0c`
 
 Clustering repository: `TM-HESSO-202526/llm-clustering-heuristics`
 
@@ -54,13 +44,9 @@ Primary methodology and result source: Anthony Atallah, *Development of Optimiza
 | [Generation-loop diagram](../projects/03-llm-optimization-thesis/assets/generation-loop.png) | Redrawn from final thesis Figure 3.1 (PDF p. 16), the TSP loop in `src/llm_tsp/llamea_loop.py` and clustering pipeline in `scripts/run_unified_pipeline.py`. |
 | [Generated-vs-baseline comparison](../projects/03-llm-optimization-thesis/assets/refinement-tradeoffs.png) | Redrawn from final thesis Tables 6.1 and 6.3 (PDF pp. 43 and 46) using recorded final values only. |
 
-The final thesis report is authoritative for benchmark design, generation-behaviour analysis, result interpretation and conclusions. It reports approximately 57,000 TSP generation attempts and approximately 71,000 clustering generation attempts across the analyzed logs.
-
 ## iPrint Printhead Anomaly Detection & Early Warning
 
 Repository: `PA-iPrint-anomaly-detection/PA`
-
-Source revision used for the portfolio: `a53dc5b`
 
 Primary report: final HEIA-FR PA report, February 2026, `AtallahAnthony_rapport_MSE_PA_SA25.pdf`.
 
@@ -70,5 +56,3 @@ Primary report: final HEIA-FR PA report, February 2026, `AtallahAnthony_rapport_
 | [Early-warning F1 plot](../projects/04-iprint-anomaly-detection/assets/f1-by-lead-time.png) | Original embedded output from `steps_before_failure.ipynb`, cell 5, output 1. |
 | [Non-jetting confusion matrices](../projects/04-iprint-anomaly-detection/assets/non-jetting-confusion.png) | Redrawn from the final report classification counts, Figure 5.1 (PDF p. 28), using the intended non-jetting class interpretation. |
 | [Signal-processing pipeline](../projects/04-iprint-anomaly-detection/assets/signal-pipeline.png) | Redrawn from `preprocessing.ipynb` cell 10, `extract_ringdown.ipynb` cell 4, `fitting_loop_merge_labels.ipynb` cells 4, 6, 8, 12 and 14, `binary_classification.ipynb` cell 3, and `steps_before_failure.ipynb` cell 3. |
-
-The PA report (Sections 2.2 and 3.1) defines meniscus pressure as the pressure difference between the ink delivery system and the atmosphere at the nozzle opening. The lowering sweep ran from −50.0 to −87.6 mbar in 0.4 mbar steps across 95 levels. The narrower increasing robustness sweep ran from −50.0 to −44.0 mbar in 0.4 mbar steps. Each lowering replicate provided approximately 121,600 nozzle × pressure waveform observations across 1,280 nozzles before label filtering. The sweeps varied operating conditions to reproduce jetting failures and induce missing-line defects. Validation on naturally occurring fouling, clogging or wear under stable operating conditions remains future work.

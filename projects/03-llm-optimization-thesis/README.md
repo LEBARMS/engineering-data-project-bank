@@ -2,7 +2,7 @@
 
 Designing optimization heuristics is traditionally an iterative specialist task.
 
-A researcher or optimization practitioner proposes an algorithmic idea, implements it, evaluates it on benchmark instances, studies where it fails, modifies the mechanism, and repeats the process. This can produce strong heuristics, but exploring many alternative designs is time-consuming and depends heavily on expert intuition.
+A researcher proposes an algorithmic idea, implements it, evaluates it on benchmark instances, studies where it fails, modifies the mechanism, and repeats the process. This can produce strong heuristics, but exploring many alternative designs is time-consuming and depends heavily on expert intuition.
 
 The master thesis investigated whether a **large language model could accelerate part of this design loop** by repeatedly generating executable heuristic candidates, receiving measured feedback, and proposing revised algorithms.
 
@@ -56,12 +56,6 @@ This showed that generating runnable code was not the hardest problem. The more 
 
 With neutral prompting, the model repeatedly returned familiar TSP mechanisms, especially nearest-neighbour construction followed by 2-opt or related local improvement.
 
-This repeated behavior motivated **diversity-control prompting**.
-
-Historical family avoidance informed the LLM when certain heuristic families had already appeared frequently and encouraged it to explore different mechanisms.
-
-Family-focused prompting used a complementary approach by explicitly directing generation toward a selected mechanism family.
-
 Longer runs also revealed an exploration/exploitation trade-off: once a useful parent candidate was found, later generations often refined or slightly modified the same mechanism instead of continually discovering new algorithm families.
 
 The clustering experiments produced approximately **71,000 generated attempts**, with about **76%** returning valid executable center sets.
@@ -76,7 +70,7 @@ The experiments therefore suggest that LLM-generated algorithms are strongly sha
 
 ## Benchmark results
 
-Final candidates were evaluated against benchmark references. Distance-only TSP included diagnostic controls, and the clustering experiments compared candidates with external baselines.
+Final candidates were evaluated against benchmark references.
 
 **Reference gap** measures the percentage difference between the candidate objective value and the reference used for that benchmark. A gap of **0%** matches the reference; lower is better. Negative values are possible when an empirical reference is improved upon.
 
@@ -85,7 +79,6 @@ Final candidates were evaluated against benchmark references. Distance-only TSP 
 Representative findings include:
 
 - In distance-only TSP, adding local 2-opt refinement to nearest-neighbour construction reduced the median reference gap from **22.64% to 8.75%**.
-- In the signal-assisted TSP experiments, the strongest selected edge-prior method reached a **4.67% median reference gap**, illustrating how strongly performance can depend on the information exposed to the generated heuristic.
 - Under the SSE clustering objective, generated method S1 reached a **1.52% median reference gap**, compared with **1.89%** for the external scikit-learn K-means++ baseline, although with a higher runtime.
 
 These results should not be interpreted as an LLM independently discovering a superior optimization solver.
@@ -101,14 +94,6 @@ Code-level inspection was used to determine whether a candidate genuinely implem
 This distinction matters because some candidates labelled with more elaborate ideas ultimately reduced to familiar local mechanisms in their executed implementation.
 
 The experiment therefore evaluated both **what the LLM claimed to generate** and **what the resulting code actually did**.
-
-## Representative generated heuristic
-
-**P3 — Coarse-to-Fine Medoid Construction with Local In-Cluster Replacement** is a selected p-median candidate.
-
-This LLM-generated candidate uses a coarse-to-fine strategy: it begins with a reduced set of representative centers, partitions the points, expands the center set using geometric information, and performs local replacement with data-point medoids.
-
-It is included as an example of the type of executable algorithm produced by the generation system, not as a claim of a fundamentally new optimization principle.
 
 ## Technical evidence
 

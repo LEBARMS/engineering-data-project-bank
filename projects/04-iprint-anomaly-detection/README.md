@@ -34,8 +34,6 @@ for a total of **95 pressure levels**.
 
 As the pressure became increasingly negative, the experiment progressively moved into operating regions where starvation and non-jetting became more likely.
 
-### Robustness pressure sweep
-
 A complementary dataset increased pressure from:
 
 **−50.0 mbar → −44.0 mbar**
@@ -54,11 +52,8 @@ At every pressure condition, acoustic self-sensing waveforms were recorded for t
 
 A 95-step lowering-pressure replicate corresponds to approximately:
 
-**121,600 nozzle × pressure waveform observations**
+**121,600 waveform observations.**
 
-before label filtering.
-
-This experimental scale is more representative of the dataset than the number of time samples contained inside an individual waveform.
 
 ## From acoustic response to physical features
 
@@ -112,7 +107,7 @@ The project then moved beyond snapshot anomaly detection and asked whether the a
 
 For each nozzle that eventually became non-jetting, acoustic features were evaluated at different numbers of pressure steps before its first failure.
 
-On the balanced held-out evaluation:
+On the balanced held-out evaluation set:
 
 - non-jetting F1 was **0.868 one pressure step before onset**;
 - **0.576 two steps before onset**;
