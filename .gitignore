@@ -9,4 +9,5 @@ __pycache__/
 credentials*.json
 *key.json
 /internal/
-
+.metals/
+.vscode/

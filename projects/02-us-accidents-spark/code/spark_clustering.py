@@ -1,4 +1,4 @@
-# Source repository: MA-BDA US Accidents team repository @ 1d55298
+# Source repository: MA-BDA US Accidents team repository
 # Source path: notebooks/phase4/4_5_Clustering_Spark_MLlib.ipynb
 # Selection: Cells 6, 8 and 10
 # Purpose: Assemble location/weather vectors, fit k=8 KMeans and score silhouette in Spark MLlib.

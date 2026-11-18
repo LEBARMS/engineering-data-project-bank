@@ -16,7 +16,7 @@ The framework searches over executable heuristic programs.
 
 Each generation cycle follows the same structure:
 
-1. define the optimization objective, candidate interface and information available to the heuristic;
+1. define the optimization objective, the interface each generated heuristic must satisfy, and the information available to it;
 2. ask the LLM to generate a heuristic candidate as executable Python code;
 3. validate the program and ensure that its output is feasible;
 4. evaluate the candidate on benchmark instances;
@@ -39,7 +39,7 @@ The same generation methodology was studied across two different optimization do
 | Candidate-list guidance | Data-point p-median |
 | Empirical edge-prior guidance | Radius-volume coverage |
 
-The purpose of using different interfaces and objectives was to observe whether the generated mechanisms changed with the information and optimization structure presented to the model.
+The purpose of varying the information regime and optimization objective was to observe whether the generated mechanisms changed in response to the information and problem structure presented to the model.
 
 ## What the generation process revealed
 
@@ -66,13 +66,15 @@ Changing the clustering objective also changed the algorithmic behavior produced
 - p-median encouraged medoid selection, sampling and medoid replacement;
 - radius-volume encouraged radius-aware repair and coverage mechanisms.
 
-The experiments therefore suggest that LLM-generated algorithms are strongly shaped by the optimization objective, the information interface and the feedback provided by the surrounding framework.
+The experiments therefore suggest that LLM-generated algorithms are strongly shaped by the optimization objective, the available information and the feedback provided by the surrounding framework.
 
 ## Benchmark results
 
-Final candidates were evaluated against benchmark references.
+The final **generated heuristics** were evaluated on the selected problem instances alongside established external baseline algorithms.
 
-**Reference gap** measures the percentage difference between the candidate objective value and the reference used for that benchmark. A gap of **0%** matches the reference; lower is better. Negative values are possible when an empirical reference is improved upon.
+For each instance, both the generated heuristics and the baseline algorithms were compared against the same reference objective value.
+
+**Reference gap** measures the percentage difference between an algorithm’s objective value and that reference value. A gap of **0%** means the reference is matched; lower values are better. Negative values are possible when an algorithm improves on the empirical reference.
 
 ![Selected LLM-generated heuristics and external baselines](assets/refinement-tradeoffs.png)
 
@@ -97,7 +99,7 @@ The experiment therefore evaluated both **what the LLM claimed to generate** and
 
 ## Technical evidence
 
-- [TSP validation and benchmark scoring](code/tsp_evaluation.py)
+- [TSP feasibility validation and evaluation scoring](code/tsp_evaluation.py)
 - [Parent-selection logic](code/parent_selection.py)
 - [Clustering objective implementations](code/clustering_objectives.py)
 - [LLM-generated P3 p-median heuristic](code/pmedian_candidate_p3.py)
@@ -108,4 +110,4 @@ Python · NumPy · pandas · Groq · Llama 3.3 70B · TSPLIB · LKH / POPMUSIC �
 
 ## Sources
 
-[TSP repository](https://github.com/TM-HESSO-202526/llm-tsp-heuristics) · [Clustering repository](https://github.com/TM-HESSO-202526/llm-clustering-heuristics) · [Final thesis evidence and benchmark provenance](../../docs/evidence-register.md#llm-guided-automatic-heuristic-design)
+[TSP source repository](https://github.com/TM-HESSO-202526/llm-tsp-heuristics) · [Clustering source repository](https://github.com/TM-HESSO-202526/llm-clustering-heuristics) · [Technical provenance](../../docs/evidence-register.md#llm-optimization-thesis)

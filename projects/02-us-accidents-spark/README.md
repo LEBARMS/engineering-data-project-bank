@@ -4,7 +4,7 @@ This project explored **Big Data processing and distributed analytics** using a 
 
 The objective was not simply to train models on an accident dataset. The project was designed to work with the tools and computational patterns used when analytical workflows move from conventional single-machine processing toward **distributed execution** across a cluster.
 
-Apache Spark provided the central distributed-computing framework, while Parquet was used to create reusable analytical datasets for downstream transformations, statistical analysis and machine-learning workloads.
+Apache Spark provided the central distributed-computing framework, while Parquet was used to create analytical datasets for downstream transformations, statistical analysis and machine-learning workloads.
 
 ## Big Data workflow
 
@@ -37,7 +37,7 @@ Representative Spark transformations included:
 
 ## Why Parquet?
 
-Parquet is a columnar binary storage format: unlike CSV, it stores typed columns in an encoded representation rather than plain text. This makes it more efficient for repeated Spark reads, especially when an analysis only needs a subset of columns.
+Parquet is a columnar binary storage format: unlike CSV, it stores typed columns in an encoded representation rather than plain text. This makes it more efficient for repeated Spark reads.
 
 ## Analytical workloads
 
@@ -53,21 +53,19 @@ This made it possible to compare not only analytical outputs but also the comput
 
 ## Cloud execution and benchmark
 
+The objective of this experiment was to observe **scaling behavior and resource use in a distributed analytics setting**, rather than to report a single model-performance score.
+
 Selected Spark workloads were executed and benchmarked on **Google Cloud**, with Google Cloud Storage used as part of the distributed workflow.
 
 The recorded benchmark increased the amount of processed data up to approximately **7 million rows** and measured execution time and memory behavior for several analytical questions.
 
 ![Execution time and memory behavior for selected Spark workloads as the processed sample size increases](assets/spark-benchmark.png)
 
-### Benchmark workloads
-
 - **Q3 — Accident duration prediction** using random forest regression.
 - **Q5 — Spatial clustering** using Spark MLlib KMeans.
 - **Q6 — Hourly accident count prediction** using random forest regression.
 
-The workloads exhibit a broadly similar increase in execution time with data volume, but at different absolute cost levels. The benchmark therefore highlights differences in constant-factor execution cost and configured memory requirements rather than demonstrating fundamentally different scaling laws.
-
-The objective of this experiment was to observe **scaling behavior and resource use in a distributed analytics setting**, rather than to report a single model-performance score.
+The workloads exhibit a broadly similar increase in execution time as data volume grows, but at different absolute cost levels and with different configured memory requirements.
 
 ## Technical evidence
 
@@ -80,4 +78,4 @@ Apache Spark · Spark SQL / DataFrames · Spark MLlib · Scala · PySpark · Par
 
 ## Sources
 
-[Technical evidence, benchmark and cloud provenance](../../docs/evidence-register.md#large-scale-us-accidents-analytics-with-apache-spark)
+[Source repository](https://github.com/MSE-202502-BDA/project-p_roth_ottiger_atallah_jouclard) · [Technical provenance](../../docs/evidence-register.md#us-accidents--spark)

@@ -1,4 +1,4 @@
-# Source repository: TSM-MachLedata/MLOps @ b81fff3
+# Source repository: TSM-MachLedata/MLOps
 # Source path: github_portfolio/TSM-MachLedata__MLOps/src/select_champion.py
 # Selection: main
 # Purpose: Rank model metric reports by macro-F1 and then accuracy, and write champion metadata.

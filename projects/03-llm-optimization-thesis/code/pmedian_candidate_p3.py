@@ -1,4 +1,4 @@
-# Source repository: TM-HESSO-202526/llm-clustering-heuristics @ 1c810e0
+# Source repository: TM-HESSO-202526/llm-clustering-heuristics
 # Source path: experiments/selected_clustering_heuristics_final_by_objective/P_MEDIAN_data_point_centers/P3_heuristic.py
 # Candidate: P3 — Coarse-to-Fine Medoid Construction with Local In-Cluster Replacement
 # Provenance: LLM-generated, curated candidate selected for final evaluation.

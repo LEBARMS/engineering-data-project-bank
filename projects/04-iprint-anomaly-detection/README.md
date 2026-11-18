@@ -40,7 +40,7 @@ A complementary dataset increased pressure from:
 
 also in **0.4 mbar steps**.
 
-This sequence covers a narrower and more stable operating range. Its purpose was not to reproduce the complete lowering sweep in reverse, but to test whether the learned acoustic signatures remained useful under a different pressure trajectory.
+This sequence purpose was to test whether the learned acoustic signatures remained useful under a different pressure trajectory.
 
 The terms **decreasing-pressure sweep** and **increasing-pressure sweep** in the results therefore describe these experimental operating trajectories.
 
@@ -48,12 +48,14 @@ The terms **decreasing-pressure sweep** and **increasing-pressure sweep** in the
 
 The studied printhead contained **1,280 nozzles** distributed across four electrical banks.
 
-At every pressure condition, acoustic self-sensing waveforms were recorded for the nozzles and synchronized with a printed nozzle-check image used to determine nozzle state.
+At each pressure condition, one acoustic self-sensing waveform was recorded for every nozzle and synchronized with a printed nozzle-check image used to determine nozzle state.
 
-A 95-step lowering-pressure replicate corresponds to approximately:
+A lowering-pressure replicate contains **95 pressure steps**, with one waveform recorded for each of the **1,280 nozzles** at every step. The nominal number of waveform observations per replicate is therefore:
 
-**121,600 waveform observations.**
-
+\[
+95\ \text{pressure steps} \times 1{,}280\ \text{nozzles}
+= \mathbf{121{,}600\ waveform\ observations}
+\]
 
 ## From acoustic response to physical features
 
@@ -63,7 +65,7 @@ This post-actuation **ring-down** response contains information about the physic
 
 Rather than training directly on raw waveform values, the informative acoustic response was represented with a damped-sinusoid model.
 
-Robust windowed fitting produced six physically interpretable parameters:
+Windowed fitting produced six physically interpretable parameters:
 
 - **amplitude** — strength of the oscillation;
 - **damping time** — how quickly the oscillation decays;
@@ -99,7 +101,7 @@ Evaluation included a balanced held-out set, a separate lowering-pressure replic
 
 The lowering-pressure results show that the fitted acoustic parameters contain a strong signature of non-jetting behavior.
 
-The increasing-pressure dataset provides a complementary test under a different and more stable pressure trajectory rather than simply repeating the same acquisition conditions.
+The increasing-pressure dataset provides a complementary test under a different pressure trajectory rather than simply repeating the same acquisition conditions.
 
 ## Early-warning analysis
 
@@ -115,7 +117,7 @@ On the balanced held-out evaluation set:
 
 ![Early-warning performance as the prediction point moves farther from observed non-jetting onset](assets/f1-by-lead-time.png)
 
-The usable early-warning signal is therefore concentrated close to the transition: the acoustic parameters become strongly informative shortly before non-jetting, while predictive performance drops rapidly at longer horizons.
+The usable early-warning signal is therefore concentrated close to the transition; the acoustic parameters become strongly informative shortly before non-jetting, while predictive performance drops rapidly at longer horizons.
 
 ## Pressure as an important experimental variable
 
@@ -128,18 +130,20 @@ A regression model trained to recover pressure from the acoustic parameters reac
 
 on held-out nozzles.
 
+![Pressure prediction from acoustic features](assets/pressure-regression.png)
+
 This matters because the experimental defects were deliberately induced through pressure changes. Pressure can therefore influence both the acoustic features and the probability of observing a defect.
 
 The pressure sweep is valuable for producing controlled failure transitions, but validation on naturally occurring fouling, clogging or wear under stable operating conditions would be required before drawing conclusions about long-term production maintenance.
 
 ## Technical evidence
 
-- [Damped-sinusoid waveform fitting and robust parameter extraction](code/ringdown_fit.py)
+- [Damped-sinusoid waveform fitting and parameter extraction](code/ringdown_fit.py)
 
 ## Technologies
 
-Python · NumPy · SciPy · pandas · scikit-learn · Matplotlib · Google Colab
+Python · NumPy · SciPy · pandas · scikit-learn · Matplotlib
 
 ## Sources
 
-[Project repository](https://github.com/PA-iPrint-anomaly-detection/PA) · [Technical evidence, figures and report provenance](../../docs/evidence-register.md#iprint-printhead-anomaly-detection--early-warning)
+[Source repository](https://github.com/PA-iPrint-anomaly-detection/PA) · [Technical provenance](../../docs/evidence-register.md#iprint-predictive-maintenance)

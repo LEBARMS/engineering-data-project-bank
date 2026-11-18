@@ -1,4 +1,4 @@
-# Source repository: TM-HESSO-202526/llm-tsp-heuristics @ 862bb0c
+# Source repository: TM-HESSO-202526/llm-tsp-heuristics
 # Source path: github_portfolio/TM-HESSO-202526__llm-tsp-heuristics/server_eval/run_selected_tsp_eval.py
 # Selection: normalize_tour and run_one
 # Purpose: Validate a tour and record score, runtime and failure status.

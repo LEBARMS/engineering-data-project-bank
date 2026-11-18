@@ -1,4 +1,4 @@
-# Source repository: TSM-MachLedata/MLOps @ b81fff3
+# Source repository: TSM-MachLedata/MLOps
 # Source path: github_portfolio/TSM-MachLedata__MLOps/src/retrain_if_drift.py
 # Selection: retrain_models and main
 # Purpose: Gate DVC stage reproduction and artifact push on the monitored drift rate.

@@ -1,4 +1,4 @@
-# Source repository: TM-HESSO-202526/llm-tsp-heuristics @ 862bb0c
+# Source repository: TM-HESSO-202526/llm-tsp-heuristics
 # Source path: github_portfolio/TM-HESSO-202526__llm-tsp-heuristics/src/llm_tsp/llamea_loop.py
 # Selection: select_parent and parent_selection_reason
 # Purpose: Select a search parent from measured candidate records.

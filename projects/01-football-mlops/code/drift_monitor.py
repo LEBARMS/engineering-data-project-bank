@@ -1,4 +1,4 @@
-# Source repository: TSM-MachLedata/MLOps @ b81fff3
+# Source repository: TSM-MachLedata/MLOps
 # Source path: github_portfolio/TSM-MachLedata__MLOps/src/monitor_drift.py
 # Selection: run_ks_drift
 # Purpose: Compute per-feature two-sample KS results and aggregate drift rate.

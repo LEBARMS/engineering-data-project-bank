@@ -1,4 +1,4 @@
-# Source repository: TSM-MachLedata/MLOps @ b81fff3
+# Source repository: TSM-MachLedata/MLOps
 # Source path: github_portfolio/TSM-MachLedata__MLOps/.github/workflows/deploy.yml
 # Selection: Smoke test container in CI through Deploy to Cloud Run
 # Purpose: Check the local container, publish its image and deploy to managed Cloud Run.

@@ -1,4 +1,4 @@
-# Source repository: PA-iPrint-anomaly-detection/PA @ a53dc5b
+# Source repository: PA-iPrint-anomaly-detection/PA
 # Source path: github_portfolio/PA-iPrint-anomaly-detection__PA/fitting_loop_merge_labels.ipynb
 # Selection: Cell 4; damped_sine_baseline_gamma, fit_sliding_windows, summarize_windows
 # Purpose: Define the physical response, overlapping-window fit and parameter summary.

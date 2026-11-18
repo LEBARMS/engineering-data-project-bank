@@ -1,4 +1,4 @@
-# Source repository: TM-HESSO-202526/llm-clustering-heuristics @ 1c810e0
+# Source repository: TM-HESSO-202526/llm-clustering-heuristics
 # Source path: github_portfolio/TM-HESSO-202526__llm-clustering-heuristics/src/llm_clustering/objectives.py
 # Selection: Complete small objective module
 # Purpose: Compute three clustering costs with batched distance calculations.

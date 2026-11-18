@@ -1,4 +1,4 @@
-// Source repository: MA-BDA US Accidents team repository @ 1d55298
+// Source repository: MA-BDA US Accidents team repository
 // Source path: notebooks/phase3/03_statistical_analysis_3_4.scala
 // Selection: Grouped numeric weather summaries and weather-condition counts in SeverityWeatherAnalysis.main
 // Purpose: Aggregate weather by severity with Spark DataFrames and export the reduced tables.

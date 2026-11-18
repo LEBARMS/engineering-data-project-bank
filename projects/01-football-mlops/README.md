@@ -12,8 +12,8 @@ The system connects the main stages of an operational machine-learning workflow:
 
 1. **Version data and model artifacts** so a specific model can be associated with the data and outputs that produced it.
 2. **Train and evaluate predictive models** while recording experiment information.
-3. **Monitor feature distributions** to detect changes in incoming data.
-4. **Conditionally retrain models** when the configured drift threshold is exceeded.
+3. **Monitor incoming feature distributions*** and compare them with the reference training data to detect data drift.
+4. **Conditionally retrain models** when the configured data drift threshold is exceeded.
 5. **Evaluate candidate models and select the champion** according to the model-selection criteria.
 6. **Package the prediction API in Docker** so the same application can run consistently in the cloud.
 7. **Validate the container during CI** before publishing it.
@@ -38,16 +38,13 @@ This provides a traceable history of training runs and supports model comparison
 
 ## Drift monitoring and conditional retraining
 
-A scheduled monitoring workflow compares current numerical features with reference data using two-sample **Kolmogorov–Smirnov tests**.
+A scheduled monitoring workflow compares the distribution of current numerical features with the reference training data using two-sample **Kolmogorov–Smirnov tests**.
 
-If more than the configured share of eligible numerical features is detected as drifting, the retraining logic reproduces the corresponding DVC pipeline stages.
+If data drift exceeds the configured threshold, the affected model pipeline is **automatically retrained** by reproducing the relevant DVC stages.
 
-The resulting model evaluation reports are compared to select the champion.
+The newly trained model is then evaluated against the current champion. Model selection prioritizes **macro-F1**, with **accuracy** used as a secondary criterion when needed.
 
-Champion selection prioritizes **macro-F1** and uses **accuracy** as a secondary criterion.
-
-Updated analytical artifacts are then stored through the versioned DVC / Cloud Storage workflow.
-
+If the new model becomes the champion, the updated model, evaluation outputs and champion configuration are versioned through **DVC** and stored in **Google Cloud Storage**.
 ## CI/CD and application deployment
 
 The serving layer is implemented as a **FastAPI prediction API packaged in Docker**.
@@ -73,7 +70,7 @@ The monitoring/retraining workflow and application-deployment workflow are imple
 
 ## Prediction service
 
-The API exposes model predictions including goal regression, home/draw/away classification and lineup-based prediction, together with champion-model metadata.
+The API exposes model predictions including goal regression, home/draw/away classification and lineup-based prediction.
 
 The portfolio emphasis, however, is the **MLOps and CI/CD system surrounding the models**, rather than football prediction accuracy itself.
 
@@ -90,4 +87,4 @@ Python · XGBoost · SciPy · DVC · MLflow · FastAPI · Uvicorn · Docker · G
 
 ## Sources
 
-[Canonical project repository](https://github.com/TSM-MachLedata/MLOps) · [Technical evidence and provenance](../../docs/evidence-register.md#football-prediction-mlops--cicd)
+[Source repository](https://github.com/TSM-MachLedata/MLOps) · [Technical provenance](../../docs/evidence-register.md#football-mlops)
