@@ -11,4 +11,4 @@ Each case study focuses on a different question: how predictive models can be op
 | [LLM-Guided Automatic Heuristic Design](projects/03-llm-optimization-thesis/README.md) | Can an LLM accelerate the traditionally manual process of generating, evaluating and iteratively improving optimization heuristics? | Python, LLM-guided code generation, TSP, clustering, automated evaluation, benchmarking |
 | [iPrint Printhead Anomaly Detection & Early Warning](projects/04-iprint-anomaly-detection/README.md) | Can piezoelectric self-sensing signals from the printhead reveal abnormal nozzle behavior and provide early warning before non-jetting occurs? | Python, SciPy, scikit-learn, signal modelling, physical feature extraction, classification |
 
-[Skills evidence map](docs/skills-evidence-map.md) · [Technical evidence register](docs/evidence-register.md)
+[Technical evidence register](docs/provenance.md)
