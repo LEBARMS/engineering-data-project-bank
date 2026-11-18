@@ -110,4 +110,4 @@ Python · NumPy · pandas · Groq · Llama 3.3 70B · TSPLIB · LKH / POPMUSIC �
 
 ## Sources
 
-[TSP source repository](https://github.com/TM-HESSO-202526/llm-tsp-heuristics) · [Clustering source repository](https://github.com/TM-HESSO-202526/llm-clustering-heuristics) · [Technical provenance](../../docs/evidence-register.md#llm-optimization-thesis)
+[TSP source repository](https://github.com/TM-HESSO-202526/llm-tsp-heuristics) · [Clustering source repository](https://github.com/TM-HESSO-202526/llm-clustering-heuristics) · [Technical provenance](../../docs/provenance.md#llm-optimization-thesis)

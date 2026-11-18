@@ -146,4 +146,4 @@ Python · NumPy · SciPy · pandas · scikit-learn · Matplotlib
 
 ## Sources
 
-[Source repository](https://github.com/PA-iPrint-anomaly-detection/PA) · [Technical provenance](../../docs/evidence-register.md#iprint-predictive-maintenance)
+[Source repository](https://github.com/PA-iPrint-anomaly-detection/PA) · [Technical provenance](../../docs/provenance.md#iprint-predictive-maintenance)

@@ -87,4 +87,4 @@ Python · XGBoost · SciPy · DVC · MLflow · FastAPI · Uvicorn · Docker · G
 
 ## Sources
 
-[Source repository](https://github.com/TSM-MachLedata/MLOps) · [Technical provenance](../../docs/evidence-register.md#football-mlops)
+[Source repository](https://github.com/TSM-MachLedata/MLOps) · [Technical provenance](../../docs/provenance.md#football-mlops)

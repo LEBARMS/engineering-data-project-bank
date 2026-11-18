@@ -78,4 +78,4 @@ Apache Spark · Spark SQL / DataFrames · Spark MLlib · Scala · PySpark · Par
 
 ## Sources
 
-[Source repository](https://github.com/MSE-202502-BDA/project-p_roth_ottiger_atallah_jouclard) · [Technical provenance](../../docs/evidence-register.md#us-accidents--spark)
+[Source repository](https://github.com/MSE-202502-BDA/project-p_roth_ottiger_atallah_jouclard) · [Technical provenance](../../docs/provenance.md#us-accidents--spark)
